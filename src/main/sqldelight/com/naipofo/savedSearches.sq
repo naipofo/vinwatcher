@@ -1,0 +1,13 @@
+CREATE TABLE searches(
+    user INTEGER NOT NULL,
+    url TEXT NOT NULL,
+    UNIQUE (user, url)
+);
+
+insert:
+INSERT INTO searches (user, url)
+VALUES (?, ?);
+
+getForUser:
+SELECT url FROM searches WHERE
+user = ?;
