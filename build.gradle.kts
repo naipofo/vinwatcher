@@ -4,6 +4,7 @@ plugins {
     kotlin("jvm") version "1.7.10"
     kotlin("plugin.serialization") version "1.7.10"
     id("com.squareup.sqldelight") version "1.5.3"
+    id("com.github.gmazzo.buildconfig") version "3.1.0"
     application
 }
 
@@ -25,6 +26,10 @@ dependencies {
     val ktorVersion = "2.0.2"
     implementation("io.ktor:ktor-client-core:$ktorVersion")
     implementation("io.ktor:ktor-client-cio:$ktorVersion")
+
+    implementation("org.kodein.di:kodein-di:7.12.0")
+
+    implementation("dev.inmo:tgbotapi:2.2.0")
 }
 
 tasks.test {
@@ -42,5 +47,11 @@ application {
 sqldelight {
     database("StuffStore") {
         packageName = "com.naipofo"
+    }
+}
+
+buildConfig {
+    project.rootProject.file("tgapi.key").readText().let {
+        buildConfigField("String", "TG_BOT_API_KEY", "\"${it}\"")
     }
 }
