@@ -22,5 +22,5 @@ val mainModule = DI {
     }
     bindSingleton { HttpClient() }
     bindSingleton { telegramBot(instance<String>("tg bot")) }
-    bindSingleton { VinRepository(instance(), instance()) }
+    bindSingleton { VinRepository(instance()) }
 }

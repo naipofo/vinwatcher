@@ -1,13 +1,30 @@
 CREATE TABLE searches(
     user INTEGER NOT NULL,
-    url TEXT NOT NULL,
-    UNIQUE (user, url)
+    searchurl TEXT NOT NULL,
+    UNIQUE (user, searchurl)
 );
 
 insert:
-INSERT OR IGNORE INTO searches (user, url)
+INSERT OR IGNORE INTO searches (user, searchurl)
 VALUES (?, ?);
 
 getForUser:
-SELECT url FROM searches WHERE
+SELECT searchurl FROM searches WHERE
 user = ?;
+
+delete:
+DELETE FROM searches
+WHERE user = ? AND searchurl = ?;
+
+isSaved:
+SELECT EXISTS (
+    SELECT 1 FROM searches
+    WHERE user = ? AND searchurl = ?
+);
+
+deleteForUser:
+DELETE FROM searches
+WHERE user = ?;
+
+listAll:
+SELECT user, searchurl FROM searches;

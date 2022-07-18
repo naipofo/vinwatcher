@@ -1,15 +1,15 @@
 CREATE TABLE pages (
-    search INTEGER NOT NULL,
-    pageid INTEGER NOT NULL,
-    UNIQUE (search, pageid)
+    user INTEGER NOT NULL,
+    pageurl TEXT NOT NULL,
+    UNIQUE (user, pageurl)
 );
 
 insert:
-INSERT OR IGNORE INTO pages (search, pageid)
+INSERT OR IGNORE INTO pages (user, pageurl)
 VALUES (?, ?);
 
 isSeen:
 SELECT EXISTS (
     SELECT 1 FROM pages
-    WHERE search = ? AND pageid = ?
+    WHERE user = ? AND pageurl = ?
 );

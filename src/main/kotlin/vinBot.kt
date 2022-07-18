@@ -16,14 +16,11 @@ val vinBot: BehaviourContextReceiver<Unit> = {
     }
     onCommand("add") {
         reply(it, "Send me a link:")
-        waitText().first().text.trim().let { url ->
+        waitText().first().text.let { url ->
+            stuffStore.savedSearchesQueries.insert(it.chat.id.chatId, url)
             sendMessage(
-                it.chat.id, if (url.isEmpty()) {
-                    "Link not saved - can't be blank"
-                } else {
-                    stuffStore.savedSearchesQueries.insert(it.chat.id.chatId, url)
-                    "Link saved \uD83D\uDCBE"
-                }
+                it.chat,
+                "Link saved \uD83D\uDCBE The bot might send a large amount of entrees for the first 5 minutes"
             )
         }
     }
@@ -34,5 +31,19 @@ val vinBot: BehaviourContextReceiver<Unit> = {
                 .joinToString(separator = "\n", prefix = "Saved links:\n")
         )
     }
-    onCommand("remove") { TODO() }
+    onCommand("remove") {
+        reply(it, "Send me a link:")
+        waitText().first().text.trim().let { url ->
+            sendMessage(
+                it.chat.id, if (url.isEmpty()) {
+                    "Link not removed - can't be blank"
+                } else if (stuffStore.savedSearchesQueries.isSaved(it.chat.id.chatId, url).executeAsOne()) {
+                    stuffStore.savedSearchesQueries.delete(it.chat.id.chatId, url)
+                    "Link deleted \u274C"
+                } else {
+                    "Link is not saved"
+                }
+            )
+        }
+    }
 }
