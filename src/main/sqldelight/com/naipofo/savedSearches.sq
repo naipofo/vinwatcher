@@ -5,7 +5,7 @@ CREATE TABLE searches(
 );
 
 insert:
-INSERT INTO searches (user, url)
+INSERT OR IGNORE INTO searches (user, url)
 VALUES (?, ?);
 
 getForUser:

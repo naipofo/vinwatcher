@@ -5,7 +5,7 @@ CREATE TABLE pages (
 );
 
 insert:
-INSERT INTO searches (user, url)
+INSERT OR IGNORE INTO pages (search, pageid)
 VALUES (?, ?);
 
 isSeen:

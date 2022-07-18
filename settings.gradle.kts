@@ -1,1 +1,1 @@
-rootProject.name = " vinwatcher"
+rootProject.name = "vinwatcher"
