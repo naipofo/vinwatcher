@@ -20,3 +20,9 @@ suspend fun checkPages() {
         }
     }
 }
+
+suspend fun silentCheckPages(url: String, user: Long) {
+    val stuffStore: StuffStore by di.mainModule.instance()
+    val vinRepository: VinRepository by di.mainModule.instance()
+    vinRepository.getItems(url).forEach { stuffStore.seenPagesQueries.insert(user, it.url) }
+}
