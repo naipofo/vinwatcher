@@ -8,6 +8,7 @@ import dev.inmo.tgbotapi.extensions.behaviour_builder.triggers_handling.onComman
 import dev.inmo.tgbotapi.extensions.utils.formatting.buildEntities
 import dev.inmo.tgbotapi.extensions.utils.formatting.linkln
 import dev.inmo.tgbotapi.extensions.utils.types.buttons.ReplyKeyboardMarkup
+import dev.inmo.tgbotapi.types.buttons.ReplyKeyboardRemove
 import dev.inmo.tgbotapi.types.buttons.SimpleKeyboardButton
 import di.mainModule
 import kotlinx.coroutines.flow.first
@@ -52,7 +53,7 @@ val vinBot: BehaviourContextReceiver<Unit> = {
         )
         waitText().first().text.let { name ->
             stuffStore.savedSearchesQueries.delete(it.chat.id.chatId, name)
-            sendMessage(it.chat.id, "Link deleted \u274C")
+            sendMessage(it.chat.id, "Link deleted \u274C", replyMarkup = ReplyKeyboardRemove())
         }
     }
 }

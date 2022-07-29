@@ -15,7 +15,7 @@ suspend fun main(args: Array<String>) {
 val backgroundCheck: Job = GlobalScope.launch {
     coroutineScope {
         while (true) {
-            delay(30.seconds)
+            delay(120.seconds)
             checkPages()
         }
     }

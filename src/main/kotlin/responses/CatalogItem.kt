@@ -11,7 +11,7 @@ data class CatalogItem(
     @SerialName("id") val id: Int,
     @SerialName("photo") val photo: Photo,
     @SerialName("price") val price: String,
-    @SerialName("size_title") val sizeTitle: String,
+    @SerialName("size_title") val sizeTitle: String?,
     @SerialName("title") val title: String,
     @SerialName("url") val url: String,
     @SerialName("user") val user: User,
