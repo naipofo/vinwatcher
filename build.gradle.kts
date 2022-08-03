@@ -30,6 +30,8 @@ dependencies {
     implementation("org.kodein.di:kodein-di:7.12.0")
 
     implementation("dev.inmo:tgbotapi:2.2.0")
+
+    implementation("commons-validator:commons-validator:1.7")
 }
 
 tasks.test {

@@ -12,6 +12,7 @@ import dev.inmo.tgbotapi.types.buttons.ReplyKeyboardRemove
 import dev.inmo.tgbotapi.types.buttons.SimpleKeyboardButton
 import di.mainModule
 import kotlinx.coroutines.flow.first
+import org.apache.commons.validator.routines.UrlValidator
 import org.kodein.di.instance
 
 val vinBot: BehaviourContextReceiver<Unit> = {
@@ -27,7 +28,9 @@ val vinBot: BehaviourContextReceiver<Unit> = {
         waitText().first().text.let { name ->
             sendMessage(
                 it.chat, if (stuffStore.savedSearchesQueries.isSaved(it.chat.id.chatId, url, name).executeAsOne()) {
-                    "Link with the same url or name is already saved"
+                    "Link with the same url or name is already saved \u274C"
+                } else if (!UrlValidator().isValid(url)) {
+                    "This URL is not valid \u274C"
                 } else {
                     stuffStore.savedSearchesQueries.insert(it.chat.id.chatId, url, name)
                     silentCheckPages(url, it.chat.id.chatId)
